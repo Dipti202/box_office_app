@@ -12,3 +12,5 @@ const apiGet=async(queryString)=>{
 export const searchShows=(query)=>apiGet(`/search/shows?q=${query}`)
 // serach shows is replacement of this string 'search/shows?q=${initialSearch}`
 // now no need to send this url string as argument to directly 
+
+export const searchActor=(query)=>apiGet(`/search/people?q=${query}`)
