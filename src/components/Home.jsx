@@ -2,6 +2,8 @@ import { useState } from "react"
 
 import { searchShows,searchActor } from "../api/tvmaze"
 import SearchForm from "./SearchForm"
+import ShowGrid from "../show/ShowGrid"
+import ActorGrid from "../actor/ActorGrid"
 function Home() {
 
         //create new state to track recives api data because when we search 
@@ -52,22 +54,33 @@ if(apiError)
     return <div>error occured:{apiError.message}</div>
    
 }
-        if(apiData)
+
+// handle null array data. in case we get api data null as result then we will get an error
+// in such case ued otional chaning to prevent null error
+//if appi data is truthy then ?(optinal chaing) mark will make sure js acess and used api length property
+//otherwise in xcase of falsy can not treat  property length of null and will display message 
+  
+if(apiData?.length===0)
+{
+  return<div> no result found
+    </div>
+}
+if(apiData)
         {
-            return apiData[0].show ?
-             
-                    apiData.map((data=>
+            return apiData[0].show ? <ShowGrid shows={apiData}/>:<ActorGrid actors={apiData}/>
+              // make shows ,actor logic isolated via componets 
+                    // apiData.map((data=>
                     
-                    <div key={data.show.id}>
-                        {data.show.name}
-                    </div>)):
-                     apiData.map((data=>
+                    // <div key={data.show.id}>  
+                    //     {data.show.name}
+                    // </div>)):
+                    //  apiData.map((data=>
                     
-                     <div key={data.person.id}>
-                         {data.person.name}
-                     </div>)
+                    //  <div key={data.person.id}>
+                    //      {data.person.name}
+                    //  </div>)
             
-            )
+            
         }
         return null; //alraedy state is null so incae of null value retun null 
 
