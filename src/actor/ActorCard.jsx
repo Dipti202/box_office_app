@@ -12,7 +12,9 @@ Interpolate gender=`($(gender)`) */}
 
     <h1>{name}{!!gender && `(${gender})`}</h1> 
     <p>{country?`country from ${country}`:'country is unknown'}</p>
-    {!!birthday && <p>born {birthday}</p>}
+
+
+    {!!birthday && <p>Born {birthday}</p>}
     <p>
         {deathday?`Died ${deathday}`:'Alive'}
     </p>
