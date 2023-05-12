@@ -10,6 +10,7 @@ const ActorGrid = ({actors}) => {
             gender={data.person.gender}
         deathday={data.person.deathday}
         birthday={data.person.birthday}
+        id={data.person.id}
           />
               ))}
                   </div>

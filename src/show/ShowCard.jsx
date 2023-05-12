@@ -1,7 +1,7 @@
 //show card for style to data instead of simple div
 import {Link} from 'react-router-dom'
 
-function ShowCard({name ,image,summary}) {
+function ShowCard({name ,image,summary,id}) {
     const summaryArray=summary?summary.split(' ').slice(0,20).join(' ').replace(/<.+?>/g,' '):"no discription availabe"
 //  Summary is in html tag and this string too long. So transform into short summary by using string array
 //     First transform in to array by using split method (' ')  by empty spaces then called slice(0,20) method with 20 elements
@@ -18,7 +18,8 @@ function ShowCard({name ,image,summary}) {
     </div>
     <p>{summaryArray}</p>
     <div>
-        <Link to='/'>Read More</Link>
+    
+        <Link to={`/show/${id}`} >Read More</Link>
         <button type="button">Start Me</button>
     </div>
     </div>

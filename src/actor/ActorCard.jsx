@@ -1,6 +1,6 @@
 
 import {Link} from 'react-router-dom'
-function ActorCard({name, image,gender,country,deathday, birthday}) {
+function ActorCard({name, image,gender,country,deathday, birthday,id}) {
 
   return (
     <div>
@@ -23,7 +23,7 @@ Interpolate gender=`($(gender)`) */}
     </div>
     
     <div>
-        <Link to='/'>Read More</Link>
+        <Link to={`/show/${id}`}>Read More</Link>
         <button type="button">Start Me</button>
     </div>
     
