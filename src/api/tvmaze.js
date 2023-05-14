@@ -14,3 +14,5 @@ export const searchShows=(query)=>apiGet(`/search/shows?q=${query}`)
 // now no need to send this url string as argument to directly 
 
 export const searchActor=(query)=>apiGet(`/search/people?q=${query}`)
+
+export const getShowById=(showId)=>apiGet(`/shows/${showId }`)
