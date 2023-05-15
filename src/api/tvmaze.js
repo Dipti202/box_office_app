@@ -15,4 +15,11 @@ export const searchShows=(query)=>apiGet(`/search/shows?q=${query}`)
 
 export const searchActor=(query)=>apiGet(`/search/people?q=${query}`)
 
-export const getShowById=(showId)=>apiGet(`/shows/${showId }`)
+//export const getShowById=(showId)=>apiGet(`/shows/${showId }`)
+
+//embeded to get and load more data 
+// to add emmebed in url. needa to modify function enbed season and cast 
+
+export const getShowById=(showId)=>apiGet(`/shows/${showId }?
+embed[]=seasons&
+embed[]=cast`)

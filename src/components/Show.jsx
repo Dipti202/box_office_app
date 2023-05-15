@@ -5,33 +5,87 @@
 import { useEffect,useState } from "react"
 import { useParams } from "react-router-dom"
 import { getShowById } from "../api/tvmaze"
-const Show = () => {
-    const {showId}=useParams() //destraucting para into showid
-    console.log(showId)
-    //crtae state to get data inside state
-    const [showData,setFetchData]=useState(null) 
-    // if instead of data get any error
-    const [error,setFetcherror]=useState(null) 
-    useEffect(()=>{
-      //asyc is call back fun used inside in use effect
+import ShowMainData from "../show/ShowMainData"
+import Details from "../show/Details"
+import Seasons from "../show/Seasons"
+import Cast from "../show/Cast"
+
+//want to re-use hook logic or extract logic from component then use custome hook
+//wrute custom hook top of the file
+const useShowbyId=showId=>{
+  //crtae state to get data inside state
+  const [showData,setFetchData]=useState(null) 
+  // if instead of data get any error
+  const [error,setFetcherror]=useState(null) 
+  useEffect(()=>{
+    //asyc is call back fun used inside in use effect
 async function fetchData(){
-  try{
-    const response= await getShowById(showId)
-    console.log(response)
-    setFetchData(response)
-  }  catch(err)
-    {
-      setFetcherror(err)
-    }
+try{
+  const response= await getShowById(showId)
+  console.log(response)
+  setFetchData(response)
+}  catch(err)
+  {
+    setFetcherror(err)
+  }
 
 }
 fetchData()
-    },[showId]) //have to define hook depencies because show id is dynamic if not supply then logic will run only once not for re-run
+  },[showId])
+  //this hook will return something which we use at time of calling this hook
+  return {showData,error} // reurn an object
+}
+const Show = () => {
+    const {showId}=useParams() //destraucting para into showid
+    console.log(showId)
+   
+    // here destruction of return object
+    const {showData,error}=useShowbyId(showId)
+
+//     useEffect(()=>{
+//       //asyc is call back fun used inside in use effect
+// async function fetchData(){
+//   try{
+//     const response= await getShowById(showId)
+//     console.log(response)
+//     setFetchData(response)
+//   }  catch(err)
+//     {
+//       setFetcherror(err)
+//     }
+
+// }
+// fetchData()
+//     },[showId]) //have to define hook depencies because show id is dynamic if not supply then logic will run only once not for re-run
 
     if(showData)
     {
-      return<div> got data :
-      {showData.name}</div>
+      return<div> 
+        <ShowMainData image={showData.image}
+        
+        name={showData.name}
+        rating={showData.rating}
+        summary={showData.summary}
+        genres={showData.genres}/>
+        <div>
+          <h2>Details</h2>
+          <Details 
+          status={showData.status}
+          premiered={showData.premiered}
+          network={showData.network} />
+        </div>
+        <div>
+      <h2>Seasons</h2>
+      {/* //season is _embeded */}
+      <Seasons seasons={showData._embedded.seasons}/>
+    </div>
+    <div>
+
+    <h2>Cast</h2>
+      {/* //season is _embeded */}
+      <Cast cast={showData._embedded.cast}/>
+    </div>
+      </div>
     }
     if( error)
     {
