@@ -18,9 +18,12 @@ function ShowCard({name ,image,summary,id}) {
     </div>
     <p>{summaryArray}</p>
     <div>
-    
-        <Link to={`/show/${id}`} >Read More</Link>
-        <button type="button">Start Me</button>
+     
+        {/* <Link to={`/show/${id}`} >Read More</Link> */}
+        {/* if we want to opeen something in new tab that is not related to client side so 
+        here we use <a> </a> will use to navigate.  */}
+
+<a href={`/show/${id}`} target='_blank'  rel="noreferrer" >Read More</a>        <button type="button">Start Me</button>
     </div>
     </div>
 

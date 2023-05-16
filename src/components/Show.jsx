@@ -3,7 +3,7 @@
 //Child routes inherit all params from their parent routes. 
 //here access showid by using useparam hook
 import { useEffect,useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { getShowById } from "../api/tvmaze"
 import ShowMainData from "../show/ShowMainData"
 import Details from "../show/Details"
@@ -60,7 +60,11 @@ const Show = () => {
 
     if(showData)
     {
-      return<div> 
+      return<div>  
+        {/* when we go back seach data is gone. so box office page need to remmeber
+        tha last searsch that we do by ucing link tag. we can also use useNavigate hook in which
+        we use button and button handler but in our case link tag is sufficient. for use navigate goto router doc */}
+        <Link to='/'> go back to home</Link>
         <ShowMainData image={showData.image}
         
         name={showData.name}

@@ -23,7 +23,8 @@ Interpolate gender=`($(gender)`) */}
     </div>
     
     <div>
-        <Link to={`/show/${id}`}>Read More</Link>
+        {/* <Link to={`/show/${id}`}>Read More</Link> */}
+        <a href={`/show/${id}`} target='_blank'  rel="noreferrer" >Read More</a> 
         <button type="button">Start Me</button>
     </div>
     

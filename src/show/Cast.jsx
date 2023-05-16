@@ -8,7 +8,7 @@ const Cast = ({cast}) => {
     (
         <div key={person.id}>
             <div>
-                <img src={person.image?person.image.medium:'/not-image-found.png'}></img>
+                <img src={person.image?person.image.medium:'/ not-image-found.png'}></img>
                 </div>
                 <div>
                     {person.name}|{character.name}{voice && '|Voiceover'}
