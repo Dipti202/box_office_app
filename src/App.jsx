@@ -2,11 +2,31 @@
 import { BrowserRouter,  Route,  Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Show from "./components/Show";
+import MainLayout from "./components/MainLayout";
+import StartPage from "./components/StartPage";
+import { QueryClient,QueryClientProvider,
+} from '@tanstack/react-query'
+
+//usequery is a data fetching libaray recommded by react team in latest version
+// to give solution of react strict  mode render component twice in react when apply use effect
+// it provides optimized solution and abstract interface so that we can wrap that functions in hook ,use query and fetch data only once inside 
+//components
+// Create a client
+const queryClient = new QueryClient()
+
 function App() {
   return (
+      // Provide the client to your App
+      <QueryClientProvider client={queryClient}>
+  
+  
     <BrowserRouter>
     <Routes>
-    <Route path="/" element={<Home/>}></Route>
+    <Route element={<MainLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/StartPage" element={<StartPage />} />
+            </Route>
+   
     <Route path="/show/:showId" element={<Show/>}>
     
     </Route>
@@ -24,6 +44,7 @@ showId is dynamic segment we gave name it to show id */}
 
    
     </BrowserRouter>
+    </QueryClientProvider>
 
   );
 }

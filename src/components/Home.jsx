@@ -1,52 +1,69 @@
 import { useState } from "react"
-
+import { useQuery } from "@tanstack/react-query"
 import { searchShows,searchActor } from "../api/tvmaze"
 import SearchForm from "./SearchForm"
 import ShowGrid from "../show/ShowGrid"
 import ActorGrid from "../actor/ActorGrid"
-function Home() {
 
-        //create new state to track recives api data because when we search 
-        //data it can be empty ,unload and many more
-    const [apiData,setApiData]=useState(null) 
 
-    //create state to handle api data errors whwn evere get error place its inside  state
-    const[apiError,setApiDataError]=useState(null)
+  //       //create new state to track recives api data because when we search 
+  //       //data it can be empty ,unload and many more
+  //   const [apiData,setApiData]=useState(null) 
 
-    // here we will pass option object directly or can destructing.i am doing destructing
-    const onSearch=async({q,searchOption})=>{
-        //ev.preventDefault();
+  //   //create state to handle api data errors whwn evere get error place its inside  state
+  //   const[apiError,setApiDataError]=useState(null)
+
+  //   // here we will pass option object directly or can destructing.i am doing destructing
+  //   const onSearch=async({q,searchOption})=>{
+  //       //ev.preventDefault();
    
-   //  wrap it into try block in case fails of api  try block will fail error split out into catch block 
-        try{
-             // remmember need to update state becuse once we click on search error message occur in case of search next time click on serach next request api 
-    //data will dangling with priovious state and still will show privious state message. so it is important to set state for every new
-    // request
+  //  //  wrap it into try block in case fails of api  try block will fail error split out into catch block 
+  //       try{
+  //            // remmember need to update state becuse once we click on search error message occur in case of search next time click on serach next request api 
+  //   //data will dangling with priovious state and still will show privious state message. so it is important to set state for every new
+  //   // request
     
-    setApiDataError(null) // so set error privious request 
-    let result;
-    if(searchOption==='shows')
+  //   setApiDataError(null) // so set error privious request 
+  //   let result;
+  //   if(searchOption==='shows')
    
-    { 
-    result= await searchShows(q)// call func and send search query as an argument
-    console.log(result)}
-    else{
-     result= await searchActor(q)// call func and send search query as an argument
-    console.log(result)
+  //   { 
+  //   result= await searchShows(q)// call func and send search query as an argument
+  //   console.log(result)}
+  //   else{
+  //    result= await searchActor(q)// call func and send search query as an argument
+  //   console.log(result)
    
-    }
-    setApiData(result)
-      }catch(error)
-      {
-        setApiDataError(error)
-      }
+  //   }
+  //   setApiData(result)
+  //     }catch(error)
+  //     {
+  //       setApiDataError(error)
+  //     }
         
-    } 
+  //   } 
 
    
     // helper function to render api instead of directly write map method inside div we make a helper function
     //to manage logic condition. because we can can any error,empty data o 
-    const renderApi=()=>{
+   
+    function Home() {
+      
+      const[filter,setFilter]=useState(null)
+//inusequery will not usestate hook becuase state import directly
+   
+const{data:apiData,error:apiError}=useQuery({
+  queryKey:['search', filter],
+  queryFn:()=>filter.searchOption==='shows'?searchShows(filter.q)
+  :searchActor(filter.q),
+  enabled: !!filter, //if filter is null then select quer will disabled,apply filter when its true
+  refetchOnWindowFocus:false //require when refocus on windoe re-fetch multiple request by query hook
+})
+const onSearch=async({q,searchOption})=>{
+  setFilter({q,searchOption})
+}
+
+const renderApi=()=>{
 
         //when we deal with api need to handle error
 if(apiError)

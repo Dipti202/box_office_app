@@ -2,45 +2,51 @@
 //The useParams hook returns an object of key/value pairs of the dynamic params from the current URL that were matched by the <Route path>. 
 //Child routes inherit all params from their parent routes. 
 //here access showid by using useparam hook
-import { useEffect,useState } from "react"
+//import { useEffect,useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { getShowById } from "../api/tvmaze"
 import ShowMainData from "../show/ShowMainData"
 import Details from "../show/Details"
 import Seasons from "../show/Seasons"
 import Cast from "../show/Cast"
+import { useQuery } from "@tanstack/react-query"
 
 //want to re-use hook logic or extract logic from component then use custome hook
 //wrute custom hook top of the file
-const useShowbyId=showId=>{
+//const useShowbyId=showId=>{
   //crtae state to get data inside state
-  const [showData,setFetchData]=useState(null) 
+  //const [showData,setFetchData]=useState(null) 
   // if instead of data get any error
-  const [error,setFetcherror]=useState(null) 
-  useEffect(()=>{
-    //asyc is call back fun used inside in use effect
-async function fetchData(){
-try{
-  const response= await getShowById(showId)
-  console.log(response)
-  setFetchData(response)
-}  catch(err)
-  {
-    setFetcherror(err)
-  }
+  //const [error,setFetcherror]=useState(null) 
+//   useEffect(()=>{
+//     //asyc is call back fun used inside in use effect
+// async function fetchData(){
+// try{
+//   const response= await getShowById(showId)
+//   console.log(response)
+//   setFetchData(response)
+// }  catch(err)
+//   {
+//     setFetcherror(err)
+//   }
 
-}
-fetchData()
-  },[showId])
-  //this hook will return something which we use at time of calling this hook
-  return {showData,error} // reurn an object
-}
+// }
+// fetchData()
+//   },[showId])
+//   //this hook will return something which we use at time of calling this hook
+//   return {showData,error} // reurn an object
+// }
 const Show = () => {
     const {showId}=useParams() //destraucting para into showid
     console.log(showId)
+    const{data:showData,error:error}=useQuery({
+      queryKey:['show', showId],
+      queryFn:()=>getShowById(showId), // will return object tht destructing on line 42
+      refetchOnWindowFocus:false
+    })
    
     // here destruction of return object
-    const {showData,error}=useShowbyId(showId)
+    //const {showData,error}=useShowbyId(showId)
 
 //     useEffect(()=>{
 //       //asyc is call back fun used inside in use effect

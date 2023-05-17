@@ -1,5 +1,5 @@
 
-import {Link} from 'react-router-dom'
+
 function ActorCard({name, image,gender,country,deathday, birthday,id}) {
 
   return (
