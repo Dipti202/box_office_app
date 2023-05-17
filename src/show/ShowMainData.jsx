@@ -1,5 +1,3 @@
-import Seasons from "./Seasons"
-
 
 const ShowMainData = ({image,name,rating,summary,genres}) => {
   return (
