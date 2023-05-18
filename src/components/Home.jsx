@@ -65,8 +65,8 @@ const onSearch=async({q,searchOption})=>{
 
 const renderApi=()=>{
 
-        //when we deal with api need to handle error
-if(apiError)
+       
+if(apiError) //when we deal with api need to handle error
 {
     return <div>error occured:{apiError.message}</div>
    
