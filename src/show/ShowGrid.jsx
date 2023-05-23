@@ -1,5 +1,5 @@
 //make show api data logic isolated
-
+import NotImageFound from '../../src/lib/not-image-found.png'
 import ShowCard from "./ShowCard"
 
 import { useStartShows } from "../lib/StartShows"
@@ -25,7 +25,7 @@ const ShowGrid = ({shows}) => {
     <div>    { 
       shows.map(data=>( //use /not-image-found.png' as place holder incase any data has no image
         <ShowCard key={data.show.id} name={data.show.name} 
-        image={data.show.image?data.show.image.medium:'/not-image-found.png'}
+        image={data.show.image?data.show.image.medium:NotImageFound}
         summary={data.show.summary}
         id={data.show.id}
         onStartClickMe={ onStartClickMe}

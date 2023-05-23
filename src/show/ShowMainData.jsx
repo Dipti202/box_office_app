@@ -1,10 +1,10 @@
-
+import NotImageFound from '../../src/lib/not-image-found.png'
 const ShowMainData = ({image,name,rating,summary,genres}) => {
   return (
 
     <div>
       <div >
-        <img src={image?image.original:'/not-image-found.png'} alt={name}
+        <img src={image?image.original: NotImageFound} alt={name}
         width={200} height={200}></img>
       </div>
         <h1>{name}</h1>
