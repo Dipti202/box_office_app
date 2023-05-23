@@ -1,5 +1,5 @@
 //show card for style to data instead of simple div
-
+import {Link} from 'react-router-dom';
 
 function ShowCard({name ,image,summary,id, onStartClickMe,isStart}) {
     const summaryArray=summary?summary.split(' ').slice(0,20).join(' ').replace(/<.+?>/g,' '):"no discription availabe"
@@ -23,7 +23,7 @@ function ShowCard({name ,image,summary,id, onStartClickMe,isStart}) {
         {/* if we want to opeen something in new tab that is not related to client side so 
         here we use <a> </a> will use to navigate.  */}
 
-<a href={`/show/${id}`} target='_blank'  rel="noreferrer" >Read More</a>   
+<Link to={`/show/${id}`} target='_blank'  rel="noreferrer" >Read More</Link>   
      <button type="button" onClick={()=> onStartClickMe(id)}>{isStart?'UNSTART':'START'}</button>
     </div>
     </div>

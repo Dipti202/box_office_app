@@ -1,11 +1,12 @@
 
-import { BrowserRouter,  Route,  Routes } from "react-router-dom";
+import { HashRouter,  Route,  Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Show from "./components/Show";
 import MainLayout from "./components/MainLayout";
 import StartPage from "./components/StartPage";
 import { QueryClient,QueryClientProvider,
 } from '@tanstack/react-query'
+import { GlobalTheme } from "./components/Theme";
 
 //usequery is a data fetching libaray recommded by react team in latest version
 // to give solution of react strict  mode render component twice in react when apply use effect
@@ -18,9 +19,9 @@ function App() {
   return (
       // Provide the client to your App
       <QueryClientProvider client={queryClient}>
+  <GlobalTheme>
   
-  
-    <BrowserRouter>
+    <HashRouter>
     <Routes>
     <Route element={<MainLayout />}>
               <Route path="/" element={<Home />} />
@@ -43,7 +44,8 @@ What ever we type as input is dynamic.we don’t know what kind of data will get
 showId is dynamic segment we gave name it to show id */}
 
    
-    </BrowserRouter>
+    </HashRouter>
+    </GlobalTheme>
     </QueryClientProvider>
 
   );
