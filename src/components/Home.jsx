@@ -4,7 +4,7 @@ import { searchShows,searchActor } from "../api/tvmaze"
 import SearchForm from "./SearchForm"
 import ShowGrid from "../show/ShowGrid"
 import ActorGrid from "../actor/ActorGrid"
-
+import {TextCenter} from '../components/common/TextCenter'
 
   //       //create new state to track recives api data because when we search 
   //       //data it can be empty ,unload and many more
@@ -68,7 +68,8 @@ const renderApi=()=>{
        
 if(apiError) //when we deal with api need to handle error
 {
-    return <div>error occured:{apiError.message}</div>
+    return <TextCenter>error occured:{apiError.message}</TextCenter>
+    //instead of div will used styled components text centred
    
 }
 
@@ -79,8 +80,8 @@ if(apiError) //when we deal with api need to handle error
   
 if(apiData?.length===0)
 {
-  return<div> no result found
-    </div>
+  return<TextCenter> no result found
+    </TextCenter>
 }
 if(apiData)
         {

@@ -1,7 +1,7 @@
 //make show api data logic isolated
 import NotImageFound from '../../src/lib/not-image-found.png'
 import ShowCard from "./ShowCard"
-
+import  { FlexGrid } from "../components/common/FlexGrid"
 import { useStartShows } from "../lib/StartShows"
 const ShowGrid = ({shows}) => {
   
@@ -22,7 +22,8 @@ const ShowGrid = ({shows}) => {
   }
 
   return (
-    <div>    { 
+    // <div>
+    <FlexGrid> { 
       shows.map(data=>( //use /not-image-found.png' as place holder incase any data has no image
         <ShowCard key={data.show.id} name={data.show.name} 
         image={data.show.image?data.show.image.medium:NotImageFound}
@@ -37,7 +38,7 @@ const ShowGrid = ({shows}) => {
         //insted of div use custom card to giv styling and isolated logic
 
    }
-    </div>
+   </FlexGrid>   
   )
 }
 

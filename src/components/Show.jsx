@@ -10,7 +10,9 @@ import Details from "../show/Details"
 import Seasons from "../show/Seasons"
 import Cast from "../show/Cast"
 import { useQuery } from "@tanstack/react-query"
+import { styled } from "styled-components"
 
+import { TextCenter } from "./common/TextCenter"
 //want to re-use hook logic or extract logic from component then use custome hook
 //wrute custom hook top of the file
 //const useShowbyId=showId=>{
@@ -66,17 +68,23 @@ const Show = () => {
 
     if(showData)
     {
-      return<div>  
-        {/* when we go back seach data is gone. so box office page need to remmeber
+      return(
+        <ShowPageWrapper>
+           <BackHomeWrapper>
+            {/* when we go back seach data is gone. so box office page need to remmeber
         tha last searsch that we do by ucing link tag. we can also use useNavigate hook in which
         we use button and button handler but in our case link tag is sufficient. for use navigate goto router doc */}
         <Link to='/'> go back to home</Link>
+           </BackHomeWrapper>
+          
+        
         <ShowMainData image={showData.image}
         
         name={showData.name}
         rating={showData.rating}
         summary={showData.summary}
         genres={showData.genres}/>
+        <InfoBlock>
         <div>
           <h2>Details</h2>
           <Details 
@@ -84,26 +92,65 @@ const Show = () => {
           premiered={showData.premiered}
           network={showData.network} />
         </div>
+        </InfoBlock>
+        <InfoBlock>
         <div>
       <h2>Seasons</h2>
       {/* //season is _embeded */}
       <Seasons seasons={showData._embedded.seasons}/>
     </div>
+    </InfoBlock>
+
+    <InfoBlock>
     <div>
 
     <h2>Cast</h2>
       {/* //season is _embeded */}
       <Cast cast={showData._embedded.cast}/>
     </div>
-      </div>
+    </InfoBlock>
+       </ShowPageWrapper>
+       
+       )
     }
     if( error)
     {
-      return<div>{error.message} </div>
+      return<TextCenter>{error.message} </TextCenter>
     }
-    return <div> data is loading </div>
+    return <TextCenter><div> data is loading </div></TextCenter> 
 
  
 }
 
 export default Show
+const BackHomeWrapper = styled.div`
+  margin-bottom: 30px;
+  text-align: left;
+  a {
+    padding: 10px;
+    color: ${({ theme }) => theme.mainColors.dark};
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const ShowPageWrapper = styled.div`
+  margin: auto;
+  @media only screen and (min-width: 768px) {
+    max-width: 700px;
+  }
+  @media only screen and (min-width: 992px) {
+    max-width: 900px;
+  }
+`;
+
+const InfoBlock = styled.div`
+  margin-bottom: 40px;
+  h2 {
+    margin: 0;
+    margin-bottom: 30px;
+    font-size: 22px;
+  }
+`;

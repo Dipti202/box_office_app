@@ -1,11 +1,12 @@
 //create seasons and cast file to display data on u
 
-
+import { styled } from 'styled-components';
 //season i s an array. so used length which means no of element ==no of seasons items
 const Seasons = ({seasons}) => {
   return (
-    <div>
-        <div>
+    <SeasonsWrapper>
+    {/* <div> */}
+        
             <p>
                 {seasons.length}
             </p>
@@ -17,19 +18,52 @@ const Seasons = ({seasons}) => {
        //we will reduce all seaons array in number and basically loop on each element number and
        //sum up episode order and return sum+season episode order. sea is current array */}
      
-        <div>
-            {seasons.map(sea=>(<div key={sea.id}>
+     <SeasonList>
+       
+            {seasons.map(sea=>(<div key={sea.id} className='season-item'>
+                <div className='left'>
                 <p>Seasons  {sea.number}</p>
                 <p>Episodes  {sea.episodeOrder}</p>
-                <div>
-                Aired  {sea.premiereDate}--{sea.endDate}
+                </div>
+                <div className='right'>
+                Aired<strong> {sea.premiereDate}--{sea.endDate}</strong> 
+                
                 </div>
                 </div>
                 ))}
-        </div>
-    </div>
-    </div>
+
+   
+    </SeasonList>
+    </SeasonsWrapper>
+
   )
 }
 
-export default Seasons
+export default Seasons;
+const SeasonsWrapper = styled.div`
+  p {
+    margin: 5px 0;
+  }
+`;
+
+const SeasonList = styled.div`
+  display: flex;
+  flex-direction: column;
+  .season-item {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    .left {
+      flex: 0 0 30%;
+      border-right: 1px solid #b0b0b0;
+      padding-right: 20px;
+    }
+    .right {
+      padding-left: 20px;
+      flex: 1;
+    }
+  }
+`;

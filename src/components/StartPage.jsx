@@ -3,6 +3,7 @@ import {useQuery} from '@tanstack/react-query'
 import { useStartShows } from "../lib/StartShows";
 import ShowGrid from '../show/ShowGrid';
 import { getShowByIds } from '../api/tvmaze';
+import {TextCenter} from '../components/common/TextCenter'
 const StartPage=()=>{
     const[startedShowIds]=useStartShows();
     const{data:staredShows, error:startError}=useQuery({
@@ -16,7 +17,7 @@ const StartPage=()=>{
     
     if(staredShows?.length===0)
     {
-        return <div>no shows were started</div>
+        return <TextCenter>no shows were started</TextCenter>
     }
     if(staredShows?.length>0)
     {
@@ -24,10 +25,10 @@ const StartPage=()=>{
     }
     if(startError)
     {
-        return <div>error occured: {startError.message}</div>
+        return <TextCenter>error occured: {startError.message}</TextCenter>
     }
 
-    return <div>page is loading</div>
+    return <TextCenter>page is loading</TextCenter>
 
 }
 export default StartPage

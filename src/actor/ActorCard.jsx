@@ -1,9 +1,10 @@
 
-
+import {SearchCard} from "../components/common/SearchCard";
 function ActorCard({name, image,gender,country,deathday, birthday,id}) {
 
   return (
-    <div>
+    // <div>
+    <SearchCard>
         {/* Inline conditional rendering in jsx
 When Use && conditional operator then make sure is a Boolean=ish value
 
@@ -28,7 +29,7 @@ Interpolate gender=`($(gender)`) */}
         <button type="button">Start Me</button>
     </div>
     
-    </div>
+    </SearchCard>
    
   )
 }
